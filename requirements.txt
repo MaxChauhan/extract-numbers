@@ -1,0 +1,4 @@
+beautifulsoup4==4.9.3
+pip==21.1.2
+setuptools==57.0.0
+soupsieve==2.2.1
