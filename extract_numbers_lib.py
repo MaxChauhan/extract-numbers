@@ -3,7 +3,6 @@
 Library
 
 """
-import math
 import re
 
 from bs4 import BeautifulSoup
@@ -37,8 +36,13 @@ def parse_file(file) -> [int]:
     :param file:
     :return:
     """
+    # First strip out page numbers
+    pagenum_pattern = r'<P STYLE="margin-top:0px;margin-bottom:0px" ALIGN="center"><FONT STYLE="font-family:Times New Roman" SIZE="2">[0-9 ]+</FONT></P>'
+    pageless = re.sub(pagenum_pattern, '', file.read())
+
     # BeautifulSoup is a library that parses out the text from a HTML file
-    soup = BeautifulSoup(file, 'html.parser')
+    soup = BeautifulSoup(pageless, 'html.parser')
+
     # Gets the raw text from the article
     text = soup.get_text()
 
@@ -50,9 +54,8 @@ def parse_file(file) -> [int]:
     # Strip out commas so numbers like 13,500 turn into 13500
     text = remove_commas(text)
 
-    # TODO still need to strip out table numbers
-
     digits = [float(x) for x in re.findall(r'\d+\.*\d?', text)]
+    print(digits)
     rounded = [str(x)[0] for x in digits]
-
+    print(rounded)
     return rounded
