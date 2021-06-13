@@ -28,15 +28,19 @@ def main():
                         default='html',
                         help='Path to read the file from')
 
+    parser.add_argument('-o', '--output',
+                        metavar='output',
+                        default='output.csv',
+                        help='Filename to write output to')
+
     args = parser.parse_args()
-    input_file = 'html/2007/51644-R20100226-C20091231-F04-0.htm'
     output = []
     folders = (args.root + '/' + f for f in os.listdir(args.root))
     for folder in folders:
         files = (folder + '/' + f for f in os.listdir(folder))
         for file in files:
-            with open(input_file) as f:
-                row = parse_filename(input_file)
+            with open(file) as f:
+                row = parse_filename(file)
                 row.extend(extract_numbers_lib.parse_file(f))
                 output.append(row)
 
