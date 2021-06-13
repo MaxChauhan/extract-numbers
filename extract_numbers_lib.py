@@ -55,7 +55,5 @@ def parse_file(file) -> [int]:
     text = remove_commas(text)
 
     digits = [float(x) for x in re.findall(r'\d+\.*\d?', text)]
-    print(digits)
     rounded = [str(x)[0] for x in digits]
-    print(rounded)
     return rounded
